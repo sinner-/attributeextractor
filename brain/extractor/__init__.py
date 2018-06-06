@@ -1,23 +1,16 @@
 from brain import db
+from brain.indicators import ROC
 
-def ROC(cur, prev):
-    return "{:.2f}".format(
-        100 * (
-            (cur - prev)/prev
-        )
-    )
-
-def extract(db_file, ticker, feature_file=None):
-    LOOK_AHEAD = 252
+def extract(db_file, ticker, lookahead, feature_file=None):
 
     data = db.fetch_data(db_file, ticker)
 
-    for i in range(252, len(data)-LOOK_AHEAD):
+    for i in range(252, len(data)-lookahead):
 
         result = []
 
         result.append(
-            ROC(data[i+LOOK_AHEAD][3], data[i][3])
+            ROC(data[i+lookahead][3], data[i][3])
         )
 
         result.append(

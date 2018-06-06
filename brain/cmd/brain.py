@@ -19,6 +19,11 @@ def main():
                         "--feature-file",
                         type=str,
                         dest="feature_file")
+    parser.add_argument("-l",
+                        "--look-ahead",
+                        type=int,
+                        default=252,
+                        dest="look_ahead")
 
     args = parser.parse_args()
 
@@ -30,5 +35,6 @@ def main():
         extractor.extract(
             args.database_file,
             args.ticker,
-            args.feature_file,
+            args.look_ahead,
+            args.feature_file
         )
