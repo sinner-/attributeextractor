@@ -39,10 +39,8 @@ def extract(db_file, ticker, lookahead, feature_file=None):
             indicators.ROC(data[i][3], data[i-1][3])
         )
 
-        hh = indicators.highest_high(data[i-252:i], 1)
-        ll = indicators.lowest_low(data[i-252:i], 2)
         result.append(
-            -100 * ((hh - data[i][3])/(hh - ll))
+            indicators.WPR(data[i-252:i])
         )
 
         for j in range(len(result)):

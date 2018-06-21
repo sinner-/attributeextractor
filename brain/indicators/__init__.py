@@ -15,3 +15,10 @@ class Indicators(object):
     def lowest_low(self, r, i):
         data = np.array(r)
         return np.min(data[:,i])
+
+    def WPR(self, r):
+        hh = self.highest_high(r, 1)
+        ll = self.lowest_low(r, 2)
+        return "{:.2f}".format(
+            -100 * ((hh - r[-1][3])/(hh - ll))
+        )
