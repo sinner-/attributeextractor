@@ -40,8 +40,30 @@ def extract(db_file, ticker, lookahead, feature_file=None):
         )
 
         result.append(
-            indicators.WPR(data[i-252:i])
+            indicators.WPR(data[i-251:i+1])
         )
+
+        result.append(
+            indicators.WPR(data[i-119:i+1])
+        )
+
+        result.append(
+            indicators.WPR(data[i-62:i+1])
+        )
+
+        result.append(
+            indicators.WPR(data[i-20:i+1])
+        )
+
+        result.append(
+            indicators.WPR(data[i-4:i+1])
+        )
+
+        result.append(
+            indicators.WPR(data[i:i+1])
+        )
+
+        return result
 
         for j in range(len(result)):
             if j == 0:
