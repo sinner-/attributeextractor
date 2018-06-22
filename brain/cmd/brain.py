@@ -32,9 +32,25 @@ def main():
             print("You must call --extract-features with --database-file and --ticker.")
             exit(1)
 
-        extractor.extract(
+        results = extractor.extract(
             args.database_file,
             args.ticker,
-            args.look_ahead,
-            args.feature_file
+            args.look_ahead
         )
+
+        if args.feature_file:
+            f = open(args.feature_file, 'w')
+        else:
+            f = None
+
+        for result in results:
+            for j in range(len(result)):
+                if j == 0:
+                    print(result[j], end=' ', file=f)
+                else:
+                    print("%d:%s" % (j, result[j]), end=' ', file=f)
+
+            print("", file=f)
+
+        if args.feature_file:
+            f.close()

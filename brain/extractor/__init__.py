@@ -1,14 +1,15 @@
 from brain import db
 from brain.indicators import Indicators
 
-def extract(db_file, ticker, lookahead, feature_file=None):
+def extract(db_file, ticker, lookahead):
 
     indicators = Indicators()
 
     data = db.fetch_data(db_file, ticker)
 
-    for i in range(252, len(data)-lookahead):
+    results = []
 
+    for i in range(252, len(data)-lookahead):
         result = []
 
         result.append(
@@ -63,11 +64,6 @@ def extract(db_file, ticker, lookahead, feature_file=None):
             indicators.WPR(data[i:i+1])
         )
 
-        return result
+        results.append(result)
 
-        for j in range(len(result)):
-            if j == 0:
-                print(result[j], end=' ')
-            else:
-                print("%d:%s" % (j, result[j]), end=' ')
-        print("")
+    return results
