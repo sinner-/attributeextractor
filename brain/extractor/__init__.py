@@ -9,12 +9,15 @@ def extract(db_file, ticker, lookahead):
 
     results = []
 
-    for i in range(252, len(data)-lookahead):
+    for i in range(252, len(data)):
         result = []
 
-        result.append(
-            indicators.ROC(data[i+lookahead][3], data[i][3])
-        )
+        if i < len(data) - lookahead:
+            result.append(
+                indicators.ROC(data[i+lookahead][3], data[i][3])
+            )
+        else:
+            result.append(0)
 
         result.append(
             indicators.ROC(data[i][3], data[i-252][3])
