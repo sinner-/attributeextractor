@@ -24,6 +24,11 @@ def main():
                         type=int,
                         default=252,
                         dest="look_ahead")
+    parser.add_argument("-p",
+                        "--profit",
+                        type=int,
+                        default=10,
+                        dest="profit")
 
     args = parser.parse_args()
 
@@ -35,7 +40,8 @@ def main():
         results = extractor.extract(
             args.database_file,
             args.ticker,
-            args.look_ahead
+            args.look_ahead,
+            args.profit
         )
 
         if args.feature_file:

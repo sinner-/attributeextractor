@@ -8,17 +8,17 @@ class Indicators(object):
             )
         )
 
-    def highest_high(self, r, i):
+    def HH(self, r, i):
         data = np.array(r)
         return np.max(data[:,i])
 
-    def lowest_low(self, r, i):
+    def LL(self, r, i):
         data = np.array(r)
         return np.min(data[:,i])
 
     def WPR(self, r):
-        hh = self.highest_high(r, 1)
-        ll = self.lowest_low(r, 2)
+        hh = self.HH(r, 1)
+        ll = self.LL(r, 2)
         return "{:.2f}".format(
             -100 * ((hh - r[-1][3])/(hh - ll))
         )

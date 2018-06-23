@@ -1,9 +1,9 @@
 from brain import db
 from brain.indicators import Indicators
 
-def extract(db_file, ticker, lookahead):
+def extract(db_file, ticker, lookahead, profit):
 
-    indicators = Indicators()
+    ind = Indicators()
 
     data = db.fetch_data(db_file, ticker)
 
@@ -13,58 +13,59 @@ def extract(db_file, ticker, lookahead):
         result = []
 
         if i < len(data) - lookahead:
-            result.append(
-                indicators.ROC(data[i+lookahead][3], data[i][3])
-            )
+            if float(ind.ROC(ind.HH(data[i:i+lookahead+1], 1), data[i][3])) >= profit:
+                result.append("+1")
+            else:
+                result.append("-1")
         else:
             result.append(0)
 
         result.append(
-            indicators.ROC(data[i][3], data[i-252][3])
+            ind.ROC(data[i][3], data[i-252][3])
         )
 
         result.append(
-            indicators.ROC(data[i][3], data[i-120][3])
+            ind.ROC(data[i][3], data[i-120][3])
         )
 
         result.append(
-            indicators.ROC(data[i][3], data[i-63][3])
+            ind.ROC(data[i][3], data[i-63][3])
         )
 
         result.append(
-            indicators.ROC(data[i][3], data[i-21][3])
+            ind.ROC(data[i][3], data[i-21][3])
         )
 
         result.append(
-            indicators.ROC(data[i][3], data[i-5][3])
+            ind.ROC(data[i][3], data[i-5][3])
         )
 
         result.append(
-            indicators.ROC(data[i][3], data[i-1][3])
+            ind.ROC(data[i][3], data[i-1][3])
         )
 
         result.append(
-            indicators.WPR(data[i-251:i+1])
+            ind.WPR(data[i-251:i+1])
         )
 
         result.append(
-            indicators.WPR(data[i-119:i+1])
+            ind.WPR(data[i-119:i+1])
         )
 
         result.append(
-            indicators.WPR(data[i-62:i+1])
+            ind.WPR(data[i-62:i+1])
         )
 
         result.append(
-            indicators.WPR(data[i-20:i+1])
+            ind.WPR(data[i-20:i+1])
         )
 
         result.append(
-            indicators.WPR(data[i-4:i+1])
+            ind.WPR(data[i-4:i+1])
         )
 
         result.append(
-            indicators.WPR(data[i:i+1])
+            ind.WPR(data[i:i+1])
         )
 
         results.append(result)
