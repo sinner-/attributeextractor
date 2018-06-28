@@ -60,3 +60,5 @@ def main():
 
         if args.feature_file:
             f.close()
+    else:
+        parser.print_help()

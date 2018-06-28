@@ -33,8 +33,11 @@ def main():
 
         db.create_db(args.database_file)
 
-    if args.ingest:
+    elif args.ingest:
         if not args.database_file or not args.csv_file or not args.ticker:
             print("You must call --ingest with --database-file and --csv-file and --ticker.")
 
         db.ingest(args.database_file, args.csv_file, args.ticker)
+
+    else:
+        parser.print_help()
