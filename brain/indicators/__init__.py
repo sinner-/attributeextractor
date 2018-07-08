@@ -22,3 +22,13 @@ class Indicators(object):
         return "{:.2f}".format(
             -100 * ((hh - r[-1][3])/(hh - ll))
         )
+
+    def BBandWidth(self, r, i):
+        data = np.array(r)
+        avg = np.average(data[:,i])
+        stddev = np.std(data[:,i])
+        width = (
+            ((avg + stddev) - (avg - stddev))/
+            avg
+        )
+        return "{:.2f}".format(100*width)

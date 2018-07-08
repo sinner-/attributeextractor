@@ -68,6 +68,22 @@ def extract(db_file, ticker, lookahead, profit):
             ind.WPR(data[i:i+1])
         )
 
+        result.append(
+            ind.BBandWidth(data[i-251:i+1], 3)
+        )
+
+        result.append(
+            ind.BBandWidth(data[i-119:i+1], 3)
+        )
+
+        result.append(
+            ind.BBandWidth(data[i-62:i+1], 3)
+        )
+
+        result.append(
+            ind.BBandWidth(data[i-20:i+1], 3)
+        )
+
         results.append(result)
 
     return results
