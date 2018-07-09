@@ -32,3 +32,10 @@ class Indicators(object):
             avg
         )
         return "{:.2f}".format(100*width)
+
+    def AnchoredMom(self, r, i):
+        data = np.array(r)
+        avg = np.average(data[:,i])
+        return "{:.2f}".format(
+            data[:,i][-1] / avg
+        )

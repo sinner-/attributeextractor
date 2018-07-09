@@ -56,7 +56,7 @@ def fetch_data(db_file, ticker):
     conn = sqlite3.connect(db_file)
     cursor = conn.cursor()
     data = cursor.execute('''
-        SELECT open, high, low, close
+        SELECT open, high, low, close, volume
         FROM stock_data
         WHERE ticker = ?
         ORDER BY date ASC

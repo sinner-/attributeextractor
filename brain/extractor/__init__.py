@@ -84,6 +84,10 @@ def extract(db_file, ticker, lookahead, profit):
             ind.BBandWidth(data[i-20:i+1], 3)
         )
 
+        result.append(
+            ind.AnchoredMom(data[i-49:i+1], 4)
+        )
+
         results.append(result)
 
     return results
