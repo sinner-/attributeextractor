@@ -1,4 +1,5 @@
 import argparse
+import subprocess
 from brain import extractor
 
 def main():
@@ -29,6 +30,22 @@ def main():
                         type=int,
                         default=10,
                         dest="profit")
+    parser.add_argument("-L",
+                        "--learn",
+                        action="store_true",
+                        dest="learn")
+    parser.add_argument("-m",
+                        "--model-file",
+                        type=str,
+                        dest="model_file")
+    parser.add_argument("-c",
+                        "--classify",
+                        action="store_true",
+                        dest="classify")
+    parser.add_argument("-o",
+                        "--output-file",
+                        type=str,
+                        dest="output_file")
 
     args = parser.parse_args()
 
@@ -60,5 +77,27 @@ def main():
 
         if args.feature_file:
             f.close()
+
+    elif args.learn:
+        if not args.feature_file or not args.model_file:
+            print("You must call --learn with --feature-file and --model-file.")
+            exit(1)
+
+        try:
+            subprocess.run(["svm_learn", args.feature_file, args.model_file])
+        except FileNotFoundError:
+            print("svm_learn binary not found in $PATH.")
+            exit(1)
+
+    elif args.classify:
+        if not args.feature_file or not args.model_file or not args.output_file:
+            print("You must call --learn with --feature-file and --model-file and --output-file.")
+            exit(1)
+
+        try:
+            subprocess.run(["svm_classify", args.feature_file, args.model_file, args.output_file])
+        except FileNotFoundError:
+            print("svm_classify binary not found in $PATH.")
+            exit(1)
     else:
         parser.print_help()
