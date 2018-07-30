@@ -1,6 +1,7 @@
 import argparse
 import subprocess
 from brain import extractor
+from brain import features
 
 def main():
     parser = argparse.ArgumentParser()
@@ -61,22 +62,7 @@ def main():
             args.profit
         )
 
-        if args.feature_file:
-            f = open(args.feature_file, 'w')
-        else:
-            f = None
-
-        for result in results:
-            for j in range(len(result)):
-                if j == 0:
-                    print(result[j], end=' ', file=f)
-                else:
-                    print("%d:%s" % (j, result[j]), end=' ', file=f)
-
-            print("", file=f)
-
-        if args.feature_file:
-            f.close()
+        features.save(results, args.feature_file)
 
     elif args.learn:
         if not args.feature_file or not args.model_file:
